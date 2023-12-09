@@ -34,15 +34,13 @@ const TodoProvider = (props) => {
       if (!response.ok) {
         throw new Error("Failed to add todo.");
       }
-      const data = await response.json();
-
-      setTodos((prevTodos) => [...prevTodos, todoData]);
-      
+       // Fetch the updated list of todos immediately after adding a new one
+      fetchData();
     } catch (error) {
       console.error("Error adding todo:", error);
     }
   };
- 
+
   const removeTodoHandler = async (id) => {
     const res = await fetch(`/api/delete-todo/${id}`, {
       method: "DELETE",
